@@ -23,7 +23,7 @@ describe Tetris do
     end        
   end
   
-  describe ".row_full?" do
+  describe "#row_full?" do
     it "should return true if a given row is full" do
       (1..COL_NUM).each {|i| @tetris.board[1][i] = 1}
       @tetris.row_full?(1).should == true
@@ -35,7 +35,7 @@ describe Tetris do
     end
   end
   
-  describe ".copy_rows" do
+  describe "#copy_rows" do
     it "should copy rows above the given row down one row each" do
       @tetris.board[1][1] = 1
       @tetris.board[2][2] = 1
@@ -47,7 +47,7 @@ describe Tetris do
     end    
   end
   
-  describe ".clear_rows" do
+  describe "#clear_rows" do
     it "should clear the given row if it's full" do
       (1..COL_NUM).each {|i| @tetris.board[1][i] = 1}
       @tetris.clear_rows
@@ -68,7 +68,7 @@ describe Tetris do
     end
   end
   
-  describe ".top_row" do
+  describe "#top_row" do
     it "should return a top-most row for given column coordinates" do
       @tetris.board[1][1] = 1
       @tetris.board[1][2] = 1
@@ -80,7 +80,7 @@ describe Tetris do
     end
   end
   
-  describe ".drop_block" do
+  describe "#drop_block" do
     it "should create 2x2 block on top of a row in the given column" do
       @tetris.board[1][1] = 1
       @tetris.board[1][2] = 1
@@ -103,7 +103,7 @@ describe Tetris do
     end
   end
   
-  describe ".play" do
+  describe "#play" do
     it "should break if .drop_block returns false" do
       @tetris.should_receive(:drop_block).and_return(false)
       result = @tetris.play
