@@ -3,10 +3,11 @@ class Tetris
   ROW_NUM = 20
   COL_NUM = 10
   
-  attr_reader :board
+  attr_reader :board, :max_play
   
-  def initialize
+  def initialize(max_play=-1)
     @board = {}
+    @max_play = max_play
     (1..ROW_NUM).each do |row|
       @board[row] = {}
     end
@@ -56,14 +57,25 @@ class Tetris
     clear_rows
   end
   
+  def pick_the_best_column
+    (1..ROW_NUM).each do |row|
+      (1..COL_NUM-1).each do |col|
+        return col if @board[row][col].nil? && @board[row][col+1].nil?
+      end
+    end
+  end
+  
   def play
-    loop do
-      col = 1 + rand(COL_NUM-2)
-      result = drop_block(col)
-      unless result
+    play_num = 0
+    while @max_play != play_num
+      col = pick_the_best_column
+      if result = drop_block(col)
+        play_num += 1
+      else
         puts "GAME OVER!"
         return nil
       end
     end
+    true
   end
 end
